@@ -8,7 +8,7 @@ import dash_bootstrap_components as dbc
 # from app import server
 from app import app
 # import all pages in the app
-from apps import entire, Europe, home
+from apps import entire, Europe, home,compare
 
 # building the navigation bar
 # https://github.com/facultyai/dash-bootstrap-components/blob/master/examples/advanced-component-usage/Navbars.py
@@ -17,6 +17,7 @@ dropdown = dbc.DropdownMenu(
         dbc.DropdownMenuItem("Home", href="/home"),
         dbc.DropdownMenuItem("Global", href="/entire"),
         dbc.DropdownMenuItem("Europe", href="/Europe"),
+        dbc.DropdownMenuItem("compare", href="/compare"),
     ],
     nav = True,
     in_navbar = True,
@@ -30,7 +31,7 @@ navbar = dbc.Navbar(
                 # code for initial column in the navigation bar
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src="/assets/logo.jpg", height="100px",width="200px")),
+                        dbc.Col(html.Img(src="/assets/main_logo.png", height="80px",width="200px")),
                         dbc.Col(dbc.NavbarBrand("World Military Dashboard", className="ml-2")),
                     ],
                     align="center",
@@ -80,6 +81,8 @@ def display_page(pathname):
         return entire.layout
     elif pathname == '/Europe':
         return Europe.layout
+    elif pathname == '/compare':
+        return compare.layout
     else:
         return home.layout
 

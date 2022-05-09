@@ -18,7 +18,7 @@ layout = html.Div([
                     , className="mb-5 mt-5")
         ]),
         dbc.Row([
-            dbc.Col(html.H5(children='This app shows military strength of 138 countries. This is designed with the available information.'
+            dbc.Col(html.H5(children='This app shows military strength of 98 countries. This is designed with the available information.'
                                      )
                     , className="mb-4")
             ]),
@@ -42,7 +42,7 @@ layout = html.Div([
     ],
     nav = True,
     in_navbar = True,
-    style={'width':'30%','backgroundColor':'gray','height':'36px'},
+    style={'width':'30%','backgroundColor':'gray','height':'36px','float':'right'},
     label = "Data Sources",
 ),
                                        ],
@@ -51,8 +51,8 @@ layout = html.Div([
 #code for 2nd block and button inside it
             dbc.Col(dbc.Card(children=[html.H3(children='Access the code used to build this dashboard',
                                                className="text-center"),dbc.Button("GitHub",
-                                                  href="https://github.com/JackLinusMcDonnell/DashAppTeaching",
-                                                  style={'backgroundColor':'gray'},
+                                                  href="https://github.com/rcreddykovvuri/Milatary-plotly.git",
+                                                  style={'backgroundColor':'gray','float':'right'},
                                                   className="mt-3"),
                                        ],
                              body=True, color="dark", outline=True)

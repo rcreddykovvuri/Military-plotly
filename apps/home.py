@@ -1,19 +1,16 @@
+#getting all the needed libraries
 import dash
 from dash import html
 import dash_bootstrap_components as dbc
-
-# needed only if running this as a single page app
-#external_stylesheets = [dbc.themes.LUX]
-#app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 from app import app
 
 # change to app.layout if running as single page app instead
 layout = html.Div([
+    #giving titles and content
     dbc.Container([
         dbc.Row([
-            #Header span the whole row
-            #className: Often used with CSS to style elements with common properties.
+            
             dbc.Col(html.H1("Welcome to the World Military dashboard", className="text-center")
                     , className="mb-5 mt-5")
         ]),
@@ -29,7 +26,8 @@ layout = html.Div([
         ]),
 
         dbc.Row([
-            # 2 columns of width 6 with a border
+            #this code is for getting 2 blocks
+            # code for block 1 
             dbc.Col(dbc.Card(children=[html.H3(children='Go to the original datasets for more information. Data is from many sources.',
                                                className="text-center"),
              #code for dropdown menu
@@ -59,9 +57,10 @@ layout = html.Div([
                     , width=6, className="mb-4"),
 
         ], className="mb-5"),
+        #code for report used to display and its hyperlink
           html.Label(['According to statista.com - These are top 10 powerful countries as of 2022. For more details ', html.A("click here",href="https://www.statista.com/chart/20418/most-powerful-militaries/")]),
           html.A(
-              # Use row and col to control vertical alignment of logo / brand
+              # Use row and col to control vertical alignment of analysis brand
               dbc.Row(
                   [
                       dbc.Col(html.Img(src="/assets/20418.jpeg",width="300px",height="300px")),
@@ -71,22 +70,18 @@ layout = html.Div([
     #code for ending slide
         dbc.Container([
                 html.A(
-                    # Use row and col to control vertical alignment of logo / brand
+                    # adding a row in the end to tell about developer
                     dbc.Row(
                         [
                             html.A(['This is developed only for educational purposes, not for any commercial use. For details contact rcreddy.kovvuri@gmail.com'])
                             ,
                         ],
-                        style={'textAlign':'center','backgroundColor':'black','color': 'white'},
+                        
                 
                     ),
-                ),])
+                ),],style={'textAlign':'center','backgroundColor':'black','color': 'white','width':'150%'},)
         
 
     ])
 
 ])
-
-# needed only if running this as a single page app
-#if __name__ == '__main__':
-#    app.run_server(port=8098,debug=True)

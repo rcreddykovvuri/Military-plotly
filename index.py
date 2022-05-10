@@ -1,3 +1,4 @@
+#loading all the needed libraries
 import dash
 import dash_core_components as dcc
 from dash import html
@@ -8,16 +9,15 @@ import dash_bootstrap_components as dbc
 # from app import server
 from app import app
 # import all pages in the app
-from apps import entire,home,compare,trends
-
+from apps import world,home,compare,trends
+server = app.server
 # building the navigation bar
-# https://github.com/facultyai/dash-bootstrap-components/blob/master/examples/advanced-component-usage/Navbars.py
 dropdown = dbc.DropdownMenu(
     children=[
         dbc.DropdownMenuItem("Home", href="/home"),
-        dbc.DropdownMenuItem("Global", href="/entire"),
-        dbc.DropdownMenuItem("trends(2005-2015)", href="/trends"),
-        dbc.DropdownMenuItem("compare", href="/compare"),
+        dbc.DropdownMenuItem("Powerful Nations", href="/world"),
+        dbc.DropdownMenuItem("Trends(2005-2015)", href="/trends"),
+        dbc.DropdownMenuItem("Compare", href="/compare"),
         
     ],
     nav = True,
@@ -34,6 +34,7 @@ navbar = dbc.Navbar(
                     [
                         dbc.Col(html.Img(src="/assets/main_logo.png", height="80px",width="200px")),
                         dbc.Col(dbc.NavbarBrand("World Military Dashboard", className="ml-2")),
+                        
                     ],
                     align="center",
                 ),
@@ -42,7 +43,7 @@ navbar = dbc.Navbar(
             dbc.NavbarToggler(id="navbar-toggler2"),
             dbc.Collapse(
                 dbc.Nav(
-                    # right align dropdown menu with ml-auto className
+                    # right align for dropdown
                     [dropdown], className="ml-auto", navbar=True
                 ),
                 id="navbar-collapse2",
@@ -74,12 +75,12 @@ app.layout = html.Div([
     html.Div(id='page-content')
 ])
 
-
+#for dynamic functionality of the code
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/entire':
-        return entire.layout
+    if pathname == '/world':
+        return world.layout
     elif pathname == '/compare':
         return compare.layout
     elif pathname == '/trends':

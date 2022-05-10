@@ -11,6 +11,8 @@ import dash_bootstrap_components as dbc
 os.chdir('D://DKIT//sem2//data_visualisation//dash//assignment2//MultipageApp//datasets//')
 nuclear = pd.read_csv('nuclear.csv')
 df = pd.read_csv('cleaned.csv')
+cols = list(df.columns)
+loc_cols = list(df['continent'].unique())
 from app import app
 nuclear.sort_values(by=['total'],inplace = True,ascending=False)
 nuclear['total'] = nuclear['total'].astype(str)
@@ -50,5 +52,61 @@ layout = html.Div(style={'backgroundColor': 'white'},children=[
         ],style={'width': '49%', 'float': 'right', 'display': 'inline-block','backgroundColor':'gray'}),
         ])
         
-    ])
+    ]),
+        dbc.Row([html.H2("Airports and populations filter by continent",className="text-center")])
+        ,
+    html.Div([
+        html.Div([
+            html.Label('Select Continent'),
+            dcc.Dropdown(id='continents_dropdown',
+                        options=[{'label': i, 'value': i}
+                                for i in loc_cols],
+                        value=loc_cols,
+                        multi=True
+            )
+        ],style={'width': '47%', 'display': 'inline-block','margin-left':'2%'}),
+        html.Div([
+            html.Label('Select Variable to display on the Graphs'),
+            dcc.Dropdown(id='features_dropdown',
+                options=[                    
+                    {'label': 'Airports', 'value': 'airport_totals'},
+                    {'label': 'Man Power', 'value': 'available_manpower'},
+                    {'label': 'Population', 'value': 'total_population'}],
+                value='airport_totals',
+            )
+        ],style={'width': '47%', 'float': 'right', 'display': 'inline-block'}),
+    ]),
+    html.Div([
+        dcc.Graph(
+            id='barcharts'
+        ),
+        ],style={'width': '80%', 'margin-left': '10%','display': 'inline-block','size':100}),
 ])
+
+@app.callback(
+    Output(component_id='barcharts', component_property='figure'),
+    [Input(component_id='continents_dropdown', component_property='value'),
+    Input(component_id='features_dropdown', component_property='value'),])
+
+def update_graphs(cont,val):
+    if not (cont or val):
+        return dash.no_update
+    data = []
+    for j in cont:
+            data.append(df[df['continent'] == j])
+    
+    dc = pd.DataFrame(np.concatenate(data), columns=cols)
+    dc = dc.infer_objects()
+    
+    dc.sort_values(by = val,ascending=False,inplace=True)
+    top = dc.head(20)
+    barfig = px.bar(top, y=val, x='country',
+             text=val, color='country', 
+             hover_data=['available_manpower','airport_totals','total_population'])
+    barfig.update_traces(texttemplate='%{text:.2s}')
+    #update text to be font size 8 and hide if text can not stay with the uniform size
+    barfig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide',
+        plot_bgcolor='rgb(233, 238, 245)',paper_bgcolor='rgb(233, 238, 245)',
+        showlegend=False, margin=dict( b=200),xaxis_title="")    
+    
+    return barfig

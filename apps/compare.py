@@ -1,5 +1,6 @@
 import dash
 from dash import dcc
+import time
 import os
 from dash import html
 from dash.dependencies import Input, Output
@@ -32,7 +33,7 @@ layout = html.Div(style={'backgroundColor': 'white'},children=[
             'color': colors['text']
         },
     ),dbc.Row([
-        html.Label('For better comparison you can select max 4 countries:'),
+        html.Label('*For better comparison you can select max 4 countries:'),
         dcc.Dropdown(id='country_drop_down',
                        options=[{'label': i, 'value': i}
                                 for i in country_names],
@@ -40,21 +41,21 @@ layout = html.Div(style={'backgroundColor': 'white'},children=[
                         multi=True,
 placeholder="Select 2 countries for comparison")
             
-        ],style={'width': '49%', 'display': 'inline-block'}),
+        ],style={'width': '45%', 'display': 'inline-block','float':'left','margin-left':'2%','backgroundColor':'rgb(233, 238, 245)'}),
         dbc.Row([
             html.Div([
                 dcc.Graph(
                     id='country_chart'
                 ),
-                ],style={'width': '75%', 'margin-left': '10%','display': 'inline-block','backgroundColor':'white','height':'300px'})
-            ]),
+                ],style={'width': '100%','display': 'inline-block','backgroundColor':'white','height':'300px','margin-right':'2%'})
+            ],style={'backgroundColor':'white'}),
         html.Div([
             html.Div([
                 html.A('The comparision Table:'),
                 dcc.Graph(
                     id='table_comp'
                 ),
-                ],style={'width': '75%', 'margin-left': '10%','display': 'inline-block','backgroundColor':'white'}),
+                ],style={'width': '75%', 'margin-left': '12%','display': 'inline-block','backgroundColor':'white'}),
             ])
         
         ])
@@ -64,6 +65,8 @@ placeholder="Select 2 countries for comparison")
               [Input(component_id='country_drop_down', component_property='value')])
 
 def update_graphs(selected_count):
+    if len(selected_count) == 0:
+        time.sleep(10)
     if len(selected_count) >= 5:
         selected_count = selected_count[0:4]
     data=[]

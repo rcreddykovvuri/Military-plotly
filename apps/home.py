@@ -18,7 +18,7 @@ layout = html.Div([
                     , className="mb-5 mt-5")
         ]),
         dbc.Row([
-            dbc.Col(html.H5(children='This app shows military strength of 98 countries. This is designed with the available information.'
+            dbc.Col(html.H5(children='This app shows military strength of 115 countries and change in trends of more than 150 countries from 2005 to 2016. This is designed with the available information.'
                                      )
                     , className="mb-4")
             ]),
@@ -42,7 +42,7 @@ layout = html.Div([
     ],
     nav = True,
     in_navbar = True,
-    style={'width':'30%','backgroundColor':'gray','height':'36px','float':'right'},
+    style={'width':'30%','backgroundColor':'gray','height':'36px','float':'right','textColor':'white'},
     label = "Data Sources",
 ),
                                        ],
@@ -74,7 +74,7 @@ layout = html.Div([
                     # Use row and col to control vertical alignment of logo / brand
                     dbc.Row(
                         [
-                            html.A(['This is developed only for educational purposes, not for any commercial use. For details contact ravichandrareddy68@gmail.com'])
+                            html.A(['This is developed only for educational purposes, not for any commercial use. For details contact rcreddy.kovvuri@gmail.com'])
                             ,
                         ],
                         style={'textAlign':'center','backgroundColor':'black','color': 'white'},

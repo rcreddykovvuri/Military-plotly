@@ -8,7 +8,7 @@ import dash_bootstrap_components as dbc
 # from app import server
 from app import app
 # import all pages in the app
-from apps import entire, Europe, home,compare
+from apps import entire,home,compare,trends
 
 # building the navigation bar
 # https://github.com/facultyai/dash-bootstrap-components/blob/master/examples/advanced-component-usage/Navbars.py
@@ -16,8 +16,9 @@ dropdown = dbc.DropdownMenu(
     children=[
         dbc.DropdownMenuItem("Home", href="/home"),
         dbc.DropdownMenuItem("Global", href="/entire"),
-        dbc.DropdownMenuItem("Europe", href="/Europe"),
+        dbc.DropdownMenuItem("trends(2005-2015)", href="/trends"),
         dbc.DropdownMenuItem("compare", href="/compare"),
+        
     ],
     nav = True,
     in_navbar = True,
@@ -79,10 +80,10 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/entire':
         return entire.layout
-    elif pathname == '/Europe':
-        return Europe.layout
     elif pathname == '/compare':
         return compare.layout
+    elif pathname == '/trends':
+        return trends.layout
     else:
         return home.layout
 
